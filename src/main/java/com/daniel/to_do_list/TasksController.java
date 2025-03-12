@@ -1,15 +1,18 @@
 package com.daniel.to_do_list;
 
-import java.io.File;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class TasksController {
-    ArrayList<Task> tasks;
+    public ArrayList<Task> tasks;
+    FileManager fileManager;
 
     public TasksController() throws IOException {
-        FileManager.readTasks();
-        tasks = FileManager.tasks;
+        fileManager = new FileManager();
+        fileManager.readTasks();
+        tasks = fileManager.getTasks();
     }
 
     public ArrayList<Task> getTasks() {
@@ -32,7 +35,7 @@ public class TasksController {
     }
 
     public void updateTasks() throws IOException {
-        FileManager.tasks = tasks;
-        FileManager.writeTasks();
+        fileManager.tasks = tasks;
+        fileManager.writeTasks();
     }
 }

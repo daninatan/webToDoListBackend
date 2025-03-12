@@ -4,21 +4,26 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class FileManager {
-    public static ArrayList<Task> tasks = new ArrayList<Task>();
-    public static File file = new File("tasks.csv");
+    public ArrayList<Task> tasks = new ArrayList<>();
+    public File file;
 
-    static{
+    public FileManager() {
+        file  = new File("tasks" + UsersController.loggedUserId + ".csv");
+        createFile();
+    }
+
+    public void createFile(){
+        file = new File("tasks" + UsersController.loggedUserId + ".csv");
         if(!file.exists()){
             try {
                 file.createNewFile();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         }
     }
 
-    public static void readTasks() throws IOException {
+    public void readTasks() throws IOException {
         BufferedReader reader;
 
         {
@@ -38,7 +43,7 @@ public class FileManager {
         reader.close();
     }
 
-    public static void writeTasks() throws IOException {
+    public void writeTasks() throws IOException {
         BufferedWriter writer;
 
         {
@@ -56,7 +61,7 @@ public class FileManager {
         writer.close();
     }
 
-    public static ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 }

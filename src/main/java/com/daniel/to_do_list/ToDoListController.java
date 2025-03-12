@@ -1,5 +1,7 @@
 package com.daniel.to_do_list;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -11,9 +13,16 @@ import java.util.ArrayList;
 
 public class ToDoListController {
 
-    TasksController tasksController = new TasksController();
+    private TasksController tasksController;
 
-    public ToDoListController() throws IOException {
+    public ToDoListController(){
+
+    }
+
+    @RequestMapping("/createController")
+    public String createController() throws IOException {
+        tasksController = new TasksController();
+        return "100% atualizado";
     }
 
     @RequestMapping("/getTasks")
